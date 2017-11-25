@@ -35,6 +35,7 @@ class Register extends Component{
         data.fullname= this.state.formvalues['fullname'];
         data.pass = this.state.formvalues['pass'];
         const stringified = queryString.stringify(data); 
+        var self = this;
         fetch('/blog/register_action.jsp', {
             method: 'POST',
             body: stringified,
@@ -44,7 +45,9 @@ class Register extends Component{
             credentials: 'same-origin',
         }).then(function(response) {
             response.text().then(function (text) {
-                console.log(text);
+                self.setState({
+                    status: text
+                });
             })
         });
     }
@@ -75,7 +78,7 @@ class Register extends Component{
             />
             <RaisedButton label="Register" onClick={this.handleRegister} style={style} primary={true} />
             
-            <p>Status: {this.state.status}</p>
+            <p>{this.state.status}</p>
         </div>);    
     }
 }
