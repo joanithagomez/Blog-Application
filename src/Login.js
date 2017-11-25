@@ -1,10 +1,10 @@
-import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import Register from './Register';
 import "./Login.css";
+import React, { Component } from 'react';
 
-class Login extends Component{
+
+class Login extends Component {
 
     render() {
         return (
@@ -22,10 +22,9 @@ class Login extends Component{
                     />
                     <RaisedButton label="Login" />
                 </div>
-                <div className="register">
-                    <Register />
-                </div>
+                
             </div>
         );
     }
+}
 export default Login;

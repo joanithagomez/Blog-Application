@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import axios from 'axios';
+import 'whatwg-fetch';
+import queryString from 'query-string';
 
 class Register extends Component{
 
@@ -9,6 +10,7 @@ class Register extends Component{
         super(props);
         this.state = {
             formvalues: {},
+            status: ""              
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
@@ -23,18 +25,28 @@ class Register extends Component{
     formvalues[name] = value;
   
     this.setState({
-      formvalues,
+        formvalues,
     });
   }
     
     handleRegister(event) {
-        const data = new FormData();
-        data.append('user', this.state.formvalues['user']);        
-        data.append('fullname', this.state.formvalues['fullname']);
-        data.append('pass', this.state.formvalues['pass']);
-        axios.post('/blog/register_action.jsp', data).then((response) => {
-              console.log(response.data);
-            });
+        const data = [];
+        data.user = this.state.formvalues['user']; 
+        data.fullname= this.state.formvalues['fullname'];
+        data.pass = this.state.formvalues['pass'];
+        const stringified = queryString.stringify(data); 
+        fetch('/blog/register_action.jsp', {
+            method: 'POST',
+            body: stringified,
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+            },
+            credentials: 'same-origin',
+        }).then(function(response) {
+            response.text().then(function (text) {
+                console.log(text);
+            })
+        });
     }
 
     render() {
@@ -42,24 +54,28 @@ class Register extends Component{
             margin: 12,
         };
         
-        return(<div> <TextField
+        return (<div> <TextField
+            name="fullname"
+            onChange={this.handleChange} 
             hintText="Full Name"
             floatingLabelText="Full Name"
             style={{ display: 'block' }}
         />
-            <TextField
+            <TextField name="user"
         onChange={this.handleChange}        
         hintText="User Id"
         floatingLabelText="User Id"
         style={{ display: 'block' }}
         />
-            <TextField
+            <TextField name="pass"
         onChange={this.handleChange}        
         hintText="Password"
         floatingLabelText="Password"
         style={{ display: 'block' }}
             />
-            <RaisedButton label="Register" onClick={this.handleRegister}style={style} primary={true}/>
+            <RaisedButton label="Register" onClick={this.handleRegister} style={style} primary={true} />
+            
+            <p>Status: {this.state.status}</p>
         </div>);    
     }
 }
