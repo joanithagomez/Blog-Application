@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+}
+
+.login{
+    margin-right: 10%;
+  display: block;
+}
+
+
+.register{
+    display: block;
+}
