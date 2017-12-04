@@ -6,8 +6,9 @@ class RegisterLogin extends Component{
     
     render() {
         return (<span>
-            <Login />
-            <Register/>
+            <Register />
+            <Login onLogin={this.props.onLogin}/>
+    
         </span>);
     }
 }
