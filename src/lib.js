@@ -2,10 +2,10 @@ import 'whatwg-fetch';
 
 export function libFetch(url, mthd, stringified){
     return fetch(url, {
-            credentials: "include",
+        credentials: "include",
         method: mthd,
         body: stringified,                
-            headers: {
+        headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
         },
         });
