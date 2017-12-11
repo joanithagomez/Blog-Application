@@ -23,11 +23,13 @@ class LinkSetup extends Component {
       <div className="content">
         <Switch>
           {this.props.loggedIn ? (
-            <Route exact path="/" render={MyBlog} />
+            <span>
+              <Route exact path="/" render={MyBlog} />
+              <Route path="/newblog" component={NewBlog} />
+            </span>
           ) : (
             <Route exact path="/" render={MyRegisterLogin} />
           )}
-          <Route path="/newblog" component={NewBlog} />
           <Route path="/xssdemo" component={Xss} />
           <Route path="/websitedefacing" component={SiteDefacing} />
           <Route path="/enc-decr" component={EncryptionDecryption} />

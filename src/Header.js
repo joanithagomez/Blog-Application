@@ -90,6 +90,7 @@ class Logged extends Component {
       <FlatButton
         style={{ color: "white" }}
         onClick={this.handleLogout}
+        containerElement={<NavLink to="/" />}
         label="Logout"
       />
     );
