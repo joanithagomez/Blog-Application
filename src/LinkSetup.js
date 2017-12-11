@@ -7,6 +7,7 @@ import SiteDefacing from "./SiteDefacing";
 import CookieDemo from "./CookieDemo";
 import RegisterLogin from "./RegisterLogin";
 import Blog from "./Blog";
+import NewBlog from "./NewBlog";
 
 class LinkSetup extends Component {
   render() {
@@ -26,6 +27,7 @@ class LinkSetup extends Component {
           ) : (
             <Route exact path="/" render={MyRegisterLogin} />
           )}
+          <Route path="/newblog" component={NewBlog} />
           <Route path="/xssdemo" component={Xss} />
           <Route path="/websitedefacing" component={SiteDefacing} />
           <Route path="/enc-decr" component={EncryptionDecryption} />

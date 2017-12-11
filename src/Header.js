@@ -15,7 +15,6 @@ class Header extends Component {
   }
 
   handleToggle = () => {
-    console.log("Left clicked");
     this.setState({ open: !this.state.open });
   };
   handleClose = () => this.setState({ open: false });

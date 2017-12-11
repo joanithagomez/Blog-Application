@@ -4,7 +4,6 @@ import Register from "./Register";
 import PublicHome from "./PublicHome";
 class RegisterLogin extends Component {
   render() {
-    console.log(this);
     return (
       <span>
         <Register />
