@@ -111,7 +111,7 @@ class Login extends Component {
             style={style}
           />
           <RaisedButton
-            label="Demo Login"
+            label="SQL Demo Login"
             onClick={this.handleDemoLogin}
             style={style}
           />

@@ -71,7 +71,6 @@ class Register extends Component {
 
     return (
       <div>
-        {" "}
         <TextField
           name="fullname"
           onChange={this.handleChange}

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import FlatButton from "material-ui/FlatButton";
+// import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-import AppBar from "material-ui/AppBar";
+// import AppBar from "material-ui/AppBar";
 // import TableContainer from './TableContainer';
 import "./Blog.css";
 import { libFetch } from "./lib";
@@ -43,8 +43,6 @@ class Blog extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleRowSelection = selectedRows => {
@@ -99,18 +97,6 @@ class Blog extends Component {
     });
   }
 
-  handleLogout() {
-    let self = this;
-    libFetch("/blog/logout.jsp", "GET", null).then(response => {
-      response.text().then(text => {
-        console.log("logged out");
-        self.props.onLogout(false);
-      });
-    });
-  }
-
-  handleAdd() {}
-
   render() {
     var rows = [];
     var self = this;
@@ -130,12 +116,6 @@ class Blog extends Component {
     };
     return (
       <div>
-        <AppBar
-          title="Blog"
-          iconElementRight={
-            <FlatButton onClick={this.handleLogout} label="Logout" />
-          }
-        />
         <RaisedButton
           onClick={this.handleAdd}
           label="New Blog"

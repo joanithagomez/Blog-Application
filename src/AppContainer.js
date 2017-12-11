@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, withRouter, Switch } from "react-router-dom";
 import App from "./App";
 import "./Footer.css";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 class AppContainer extends Component {
   constructor(props) {
@@ -13,12 +14,12 @@ class AppContainer extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route
-          path="/"
-          render={() => {
-            return (
-              <span>
+      <MuiThemeProvider>
+        <Switch>
+          <Route
+            path="/"
+            render={() => {
+              return (
                 <App
                   loggedIn={this.state.loggedIn}
                   onLogin={response => {
@@ -37,14 +38,11 @@ class AppContainer extends Component {
                     });
                   }}
                 />
-                {/* <div className="footer">
-                  <p className="privacy-stmt">Privacy Statement</p>
-                </div> */}
-              </span>
-            );
-          }}
-        />
-      </Switch>
+              );
+            }}
+          />
+        </Switch>
+      </MuiThemeProvider>
     );
   }
 }
