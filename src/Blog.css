@@ -1,3 +1,11 @@
-.card{
-    /* margin: 0 20%; */
+.blog-container {
+  min-height: 100%;
+  height: auto;
+}
+
+.lastlogin {
+  float: right;
+  margin-right: 0.5%;
+  font-size: 0.5em;
+  color: grey;
 }

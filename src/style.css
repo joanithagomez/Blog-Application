@@ -1,0 +1,9 @@
+.container {
+  min-height: inherit;
+  height: 100vh;
+  padding: 8.33%;
+}
+
+.instructions {
+  font-size: 0.9em;
+}

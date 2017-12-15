@@ -5,22 +5,10 @@ import React, { Component } from "react";
 import "./PublicHome.css";
 var createReactClass = require("create-react-class");
 
-var BlogSection = createReactClass({
-  render: function() {
-    return (
-      <div className="blog-container">
-        <div className="heading">{this.props.post.title}</div>
-        <div className="body">{this.props.post.content}</div>
-      </div>
-    );
-  }
-});
-
 class PublicHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //   formvalues: {},
       posts: []
     };
   }
@@ -52,5 +40,16 @@ class PublicHome extends Component {
     );
   }
 }
+
+var BlogSection = createReactClass({
+  render: function() {
+    return (
+      <div className="blog-container">
+        <div className="heading">{this.props.post.title}</div>
+        <div className="body">{this.props.post.content}</div>
+      </div>
+    );
+  }
+});
 
 export default PublicHome;

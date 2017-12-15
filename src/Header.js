@@ -4,7 +4,10 @@ import MenuItem from "material-ui/MenuItem";
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
 import { libFetch } from "./lib";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Login from "./Login";
+import "./style.css";
 
 class Header extends Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class Header extends Component {
             this.props.loggedIn ? (
               <Logged onLogout={this.props.onLogout} />
             ) : (
-              false
+              <Login onLogin={this.props.onLogin} />
             )
           }
         />
@@ -42,27 +45,17 @@ class Header extends Component {
           <AppBar showMenuIconButton={false} />
           <MenuItem
             primaryText="Home"
-            containerElement={<NavLink to="/" />}
+            containerElement={<Link to="/" />}
             onClick={this.handleClose}
           />
           <MenuItem
             primaryText=" XSS Demo"
-            containerElement={<NavLink to="/xssdemo" />}
+            containerElement={<Link to="/xssdemo" />}
             onClick={this.handleClose}
           />
           <MenuItem
             primaryText="Website Defacing"
-            containerElement={<NavLink to="/websitedefacing" />}
-            onClick={this.handleClose}
-          />
-          <MenuItem
-            primaryText="Cookie Demo"
-            containerElement={<NavLink to="/cookiedemo" />}
-            onClick={this.handleClose}
-          />
-          <MenuItem
-            primaryText="Encryption/Decryption"
-            containerElement={<NavLink to="/enc-decr" />}
+            containerElement={<Link to="/websitedefacing" />}
             onClick={this.handleClose}
           />
         </Drawer>
@@ -90,7 +83,7 @@ class Logged extends Component {
       <FlatButton
         style={{ color: "white" }}
         onClick={this.handleLogout}
-        containerElement={<NavLink to="/" />}
+        containerElement={<Link to="/" />}
         label="Logout"
       />
     );

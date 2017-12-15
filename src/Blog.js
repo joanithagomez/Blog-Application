@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-// import FlatButton from "material-ui/FlatButton";
+import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
-// import TextField from "material-ui/TextField";
-// import AppBar from "material-ui/AppBar";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Blog.css";
 import {
   Table,
@@ -13,37 +11,21 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-var createReactClass = require("create-react-class");
+import { libFetch } from "./lib";
+import queryString from "query-string";
 
-var BlogGridRow = createReactClass({
-  isSelected: function(index) {
-    return this.props.selectedItem.indexOf(index) !== -1;
-  },
-
-  render: function() {
-    return (
-      <TableRow selected={this.isSelected(this.props.post.id)}>
-        <TableRowColumn>{this.props.post.title}</TableRowColumn>
-        <TableRowColumn>{this.props.post.status}</TableRowColumn>
-      </TableRow>
-    );
-  }
-});
+// import TextField from "material-ui/TextField";
+// import AppBar from "material-ui/AppBar";
 
 class Blog extends Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
-      selected: [0]
+      selectedItem: [0],
+      selectedBlog: {}
     };
   }
-
-  handleRowSelection = selectedRows => {
-    this.setState({
-      selected: selectedRows
-    });
-  };
 
   componentDidMount() {
     this.fetchblogs();
@@ -62,73 +44,116 @@ class Blog extends Component {
       });
   }
   //
-  // handleChange(event) {
-  //   event.preventDefault();
-  //   let formvalues = this.state.formvalues;
-  //   let name = event.target.name;
-  //   let value = event.target.value;
-  //   formvalues[name] = value;
   //
-  //   this.setState({
-  //     formvalues
-  //   });
-  // }
-  //
-  // handleSubmit(event) {
-  //   const data = [];
-  //
-  //   data.title = this.state.formvalues["title"];
-  //   data.content = this.state.formvalues["content"];
-  //   const stringified = queryString.stringify(data);
-  //   var self = this;
-  //   // var array = [];
-  //   libFetch("/blog/blog_action.jsp", "POST", stringified).then(function(
-  //     response
-  //   ) {
-  //     response.text().then(function(text) {
-  //       self.fetchblogs();
-  //     });
-  //   });
-  // }
+  handleDelete(id, e) {
+    // console.log("deleting id: " + id);
+    const data = [];
+    data.id = id;
+    const stringified = queryString.stringify(data);
+    var self = this;
+    libFetch("/blog/delete_blog.jsp", "POST", stringified)
+      .then(response => response.text())
+      .then(text => {
+        console.log("Deleting: " + text);
 
-  render() {
+        self.fetchblogs();
+      });
+  }
+
+  isSelected(index) {
+    return this.state.selectedItem.indexOf(index) !== -1;
+  }
+
+  handleRowSelection = selectedRow => {
+    // console.log("selected " + selectedRow);
+
+    this.setState({
+      selectedItem: selectedRow
+    });
+  };
+  //
+  //
+  handleView(id, e) {
+    const data = [];
+    data.id = id;
+    const stringified = queryString.stringify(data);
+    libFetch("/blog/view_blog.jsp", "POST", stringified)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          selectedBlog: data
+        });
+      });
+    // console.log(id);
+  }
+
+  //
+  //
+  renderBlogList(posts) {
     var rows = [];
     var self = this;
-    this.state.posts.forEach(function(item) {
-      if (self.state.selected !== undefined)
+    // var i = 0;
+    posts.forEach(function(item) {
+      if (self.state.selectedItem !== undefined)
         rows.push(
-          <BlogGridRow
+          <TableRow
             key={item.id}
-            selectedItem={self.state.selected}
-            post={item}
-          />
+            // selected={self.isSelected(i++)}
+            // style={{ cursor: "pointer" }}
+          >
+            <TableRowColumn>{item.title}</TableRowColumn>
+            {/* <TableRowColumn>{item.status}</TableRowColumn> */}
+            <TableRowColumn>
+              <FlatButton label="View" onClick={self.handleView.bind(self, item.id)} />
+              <FlatButton
+                label="Delete"
+                onClick={self.handleDelete.bind(self, item.id)}
+              />
+            </TableRowColumn>
+          </TableRow>
         );
     });
+    return rows;
+  }
 
+  //
+  //
+  render() {
     const style = {
       margin: 12
     };
     return (
-      <div>
-        <RaisedButton
-          containerElement={<NavLink to="/newblog" />}
-          label="New Blog"
-          primary={true}
-          style={style}
-        />
+      <span>
+        <div className="blog-container">
+          <RaisedButton
+            containerElement={<Link to="/newblog" />}
+            label="New Blog"
+            secondary={true}
+            style={style}
+          />
+          <Table selectable={false}>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <TableRow>
+                <TableHeaderColumn>Title</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {this.renderBlogList(this.state.posts)}
+            </TableBody>
+          </Table>
 
-        <Table onRowSelection={this.handleRowSelection}>
-          <TableHeader>
-            <TableRow>
-              <TableHeaderColumn>Title</TableHeaderColumn>
-              <TableHeaderColumn>Status</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody>{rows}</TableBody>
-        </Table>
-      </div>
+          <div className="blog-container">
+            <div className="heading">{this.state.selectedBlog.title}</div>
+            <div className="body">{this.state.selectedBlog.content}</div>
+          </div>
+        </div>
+        <p className="lastlogin">Last login: {this.props.lastLogin}</p>
+      </span>
     );
   }
 }
+//
+//
+//
 
 export default Blog;

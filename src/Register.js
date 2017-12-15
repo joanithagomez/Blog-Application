@@ -3,16 +3,19 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import "whatwg-fetch";
 import queryString from "query-string";
+import ReCAPTCHA from "./recaptcha-wrapper";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formvalues: {},
-      status: ""
+      status: "",
+      recaptchaResponse: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
+    this.onCaptchaChange = this.onCaptchaChange.bind(this);
   }
 
   handleChange(event) {
@@ -46,6 +49,7 @@ class Register extends Component {
       data.user = this.state.formvalues["user"];
       data.fullname = this.state.formvalues["fullname"];
       data.pass = this.state.formvalues["pass"];
+      data.recaptchaResponse = this.state.recaptchaResponse;
       const stringified = queryString.stringify(data);
       fetch("/blog/register_action.jsp", {
         method: "POST",
@@ -62,6 +66,12 @@ class Register extends Component {
         });
       });
     }
+  }
+  onCaptchaChange(response) {
+    // console.log(response);
+    this.setState({
+      recaptchaResponse: response
+    });
   }
 
   render() {
@@ -96,7 +106,12 @@ class Register extends Component {
           label="Register"
           onClick={this.handleRegister}
           style={style}
-          primary={true}
+          secondary={true}
+        />
+        <ReCAPTCHA
+          ref="recaptcha"
+          sitekey="6LfuHz0UAAAAAIBDUjKsEWW5Dvem4L08077vI6aC"
+          onChange={this.onCaptchaChange}
         />
         <p>{this.state.status}</p>
       </div>

@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 // import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-import "./SiteDefacing.css";
+// import "./SiteDefacing.css";
+import "./style.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import RaisedButton from "material-ui/RaisedButton";
 
 class SiteDefacing extends Component {
   constructor(props) {
@@ -26,31 +29,37 @@ class SiteDefacing extends Component {
 
   render() {
     return (
-      <span>
-        <h1>Website Defacing Demo</h1>
+      <div className="container">
+        <div>
+          <h1>Website Defacing Demo</h1>
+        </div>
         <div dangerouslySetInnerHTML={{ __html: this.createMarkup() }} />
-        <img
-          style={{ display: "block" }}
-          alt="GoWarriors"
-          src="https://www.downtowncampbell.com/sites/default/files/styles/8-large_650/public/uploads/users/2915/images_5_0?itok=fVADfn-Q"
-        />
-        <TextField
-          onChange={this.handleChange}
-          fullWidth={true}
-          floatingLabelText="Title"
-        />
-        {/* <TextField
-          onChange={this.handleChange}
-          hintText="Body"
-          fullWidth={true}
-          rows={2}
-        /> */}
+        <div>
+          <img
+            alt="GoWarriors"
+            src="https://www.downtowncampbell.com/sites/default/files/styles/8-large_650/public/uploads/users/2915/images_5_0?itok=fVADfn-Q"
+          />
+        </div>
+
         <div className="instructions">
+          <TextField
+            onChange={this.handleChange}
+            fullWidth={true}
+            floatingLabelText="Title"
+          />
           {
             "<img src=0 onerror=\"document.getElementsByTagName('img')[1].src = 'https://dontweightaround.files.wordpress.com/2011/10/gowarriors.jpg'\">"
           }
+          <CopyToClipboard
+            onCopy={this.onCopy}
+            text={
+              "<img src=0 onerror=\"document.getElementsByTagName('img')[1].src = 'https://dontweightaround.files.wordpress.com/2011/10/gowarriors.jpg'\">"
+            }
+          >
+            <RaisedButton label="Copy" />
+          </CopyToClipboard>
         </div>
-      </span>
+      </div>
     );
   }
 }

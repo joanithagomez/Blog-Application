@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import "./style.css";
 
 class Xss extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_supplied: ""
+      user_supplied: "",
+      copied: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,26 +25,37 @@ class Xss extends Component {
     return this.state.user_supplied;
   }
 
+  onCopy = () => {
+    this.setState({ copied: true });
+  };
   render() {
     return (
-      <span>
+      <div className="container">
         <h1>Cross-site scripting Demo</h1>
         <div dangerouslySetInnerHTML={{ __html: this.createMarkup() }} />
-        {/* Escaped: <div>{this.createMarkup()} </div> */}
         <TextField onChange={this.handleChange} floatingLabelText="Title" />
-        {/* <TextField
-          onChange={this.handleChange}
-          hintText="Body"
-          fullWidth={true}
-          rows={2}
-        /> */}
-        <div style={{ display: "inline" }}>
+        <div>
           {"<img src=0 onerror='alert(1)'/>"}
+          <CopyToClipboard onCopy={this.onCopy} text={"<img src=0 onerror='alert(1)'/>"}>
+            <RaisedButton label="Copy" />
+          </CopyToClipboard>
         </div>
-        <RaisedButton label="Copy" />
-        <div style={{ display: "inline" }}>{"<h1>Demo text<h1/>"}</div>
-        <RaisedButton label="Copy" />
-      </span>
+        <div>
+          {"<h1>Demo text<h1/>"}
+          <CopyToClipboard onCopy={this.onCopy} text={"<h1>Demo text<h1/>"}>
+            <RaisedButton label="Copy" />
+          </CopyToClipboard>
+        </div>
+        <div>
+          {"<img src=0 onerror='console.log(document.cookie);'"}/>
+          <CopyToClipboard
+            onCopy={this.onCopy}
+            text={"<img src=0 onerror='console.log(document.cookie);'"}
+          >
+            <RaisedButton label="Copy" />
+          </CopyToClipboard>
+        </div>
+      </div>
     );
   }
 }

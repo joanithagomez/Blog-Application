@@ -24,6 +24,7 @@ class App extends Component {
           loggedIn={this.props.loggedIn}
           onLogin={this.props.onLogin}
           onLogout={this.props.onLogout}
+          lastLogin={this.props.lastLogin}
         />
       </div>
     );

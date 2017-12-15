@@ -1,6 +1,6 @@
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-// import FlatButton from 'material-ui/FlatButton';
+// import FlatButton from "material-ui/FlatButton";
 import "./Login.css";
 import React, { Component } from "react";
 import queryString from "query-string";
@@ -11,7 +11,8 @@ class Login extends Component {
     super(props);
     this.state = {
       formvalues: {},
-      status: ""
+      status: "",
+      lastLogin: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -37,12 +38,10 @@ class Login extends Component {
     const stringified = queryString.stringify(data);
     var self = this;
 
-    libFetch("/blog/demologin_action.jsp", "POST", stringified).then(function(
-      response
-    ) {
+    libFetch("/blog/demologin_action.jsp", "POST", stringified).then(function(response) {
       response.text().then(function(text) {
         if (text.trim() === "1") {
-          self.props.onLogin(true);
+          self.props.onLogin(true, self.state.lastLogin);
           self.setState({
             status: "Login Successful"
           });
@@ -54,25 +53,58 @@ class Login extends Component {
       });
     });
   }
+
+  setCookie(username) {
+    var entry = {};
+    entry[username] = new Date().toString();
+
+    // console.log("Now: " + JSON.stringify(x));
+
+    //
+
+    if (document.cookie === "") {
+      console.log("Last login: now");
+      document.cookie = "lastVisited=" + JSON.stringify(entry);
+      console.log(document.cookie);
+    } else {
+      var cukie = document.cookie;
+      // console.log("cukie read: " + cukie);
+      var obj = cukie.substring(12);
+      var objectcookie = JSON.parse(obj);
+      var lastVisited;
+      if (objectcookie.hasOwnProperty(username)) {
+        lastVisited = objectcookie[username];
+      } else {
+        lastVisited = new Date().toString();
+      }
+      console.log("Last login: " + lastVisited);
+
+      this.setState({
+        lastLogin: lastVisited
+      });
+      objectcookie[username] = new Date().toString();
+      document.cookie = "lastVisited=" + JSON.stringify(objectcookie);
+
+      // }
+    }
+  }
+
+  //
+  //
   handleLogin(event) {
     const data = [];
     data.user = this.state.formvalues["user"];
     data.pass = this.state.formvalues["pass"];
     const stringified = queryString.stringify(data);
     var self = this;
-
-    libFetch("/blog/login_action.jsp", "POST", stringified).then(function(
-      response
-    ) {
+    libFetch("/blog/login_action.jsp", "POST", stringified).then(function(response) {
       response.text().then(function(text) {
-        console.log("Login reposnse :" + text.trim());
         console.log("Username :" + data.user);
 
         if (text.trim() === "1") {
-          self.props.onLogin(true);
-          // self.setState({
-          //     status: "Login Successful"
-          // });
+          self.setCookie(data.user);
+          self.props.onLogin(true, self.state.lastLogin);
+          // self.props.setLastLogin(this.state.lastLogin);
         } else {
           self.setState({
             status: "Incorrect Username or password."
@@ -84,37 +116,40 @@ class Login extends Component {
 
   render() {
     const style = {
-      margin: 12
+      margin: 5
     };
-
+    const textfieldStyle = {
+      width: 180,
+      color: "white"
+    };
     return (
-      <div className="container">
+      <div className="login-container">
         <div className="login">
-          <TextField
-            name="user"
-            style={{ display: "block" }}
-            onChange={this.handleChange}
-            hintText="Username"
-            floatingLabelText="Username"
-          />
-          <TextField
-            name="pass"
-            onChange={this.handleChange}
-            hintText="Password"
-            floatingLabelText="Password"
-            type="text"
-            style={{ display: "block" }}
-          />
-          <RaisedButton
-            label="Login"
-            onClick={this.handleLogin}
-            style={style}
-          />
-          <RaisedButton
-            label="SQL Demo Login"
-            onClick={this.handleDemoLogin}
-            style={style}
-          />
+          <div>
+            <TextField
+              name="user"
+              onChange={this.handleChange}
+              hintText="Username"
+              floatingLabelText="Username"
+              style={textfieldStyle}
+            />
+          </div>
+          <div>
+            <TextField
+              name="pass"
+              onChange={this.handleChange}
+              hintText="Password"
+              floatingLabelText="Password"
+              type="text"
+              style={textfieldStyle}
+            />
+          </div>
+          <div>
+            <RaisedButton label="Login" onClick={this.handleLogin} style={style} />
+          </div>
+          <div>
+            <RaisedButton label="SQL" onClick={this.handleDemoLogin} style={style} />
+          </div>
           <p>{this.state.status}</p>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import RaisedButton from "material-ui/RaisedButton";
+// import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
+// import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { libFetch } from "./lib";
 import queryString from "query-string";
@@ -10,20 +12,22 @@ class NewBlog extends Component {
     super(props);
     this.state = {
       formvalues: {},
-      posts: [],
-      selected: [0]
+      fireRedirect: false,
+      posts: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   fetchblogs() {
+    var self = this;
     fetch("/blog/blog_list.jsp", {
       method: "GET",
       credentials: "include"
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({
+        self.setState({
           posts: data
         });
       });
@@ -49,9 +53,7 @@ class NewBlog extends Component {
     const stringified = queryString.stringify(data);
     var self = this;
     // var array = [];
-    libFetch("/blog/blog_action.jsp", "POST", stringified).then(function(
-      response
-    ) {
+    libFetch("/blog/blog_action.jsp", "POST", stringified).then(function(response) {
       response.text().then(function(text) {
         self.fetchblogs();
       });
@@ -59,12 +61,11 @@ class NewBlog extends Component {
   }
 
   render() {
-    const style = {
-      margin: 12
-    };
+    // const style = {
+    //   margin: 12
+    // };
     return (
       <div>
-        {" "}
         <TextField
           name="title"
           onChange={this.handleChange}
@@ -79,12 +80,12 @@ class NewBlog extends Component {
           multiLine={true}
           fullWidth={true}
         />
-        <RaisedButton
+        <FlatButton containerElement={<NavLink to="/" />} label="Cancel" />
+        <FlatButton
           onClick={this.handleSubmit}
           containerElement={<NavLink to="/" />}
           label="Submit"
-          secondary={true}
-          style={style}
+          primary={true}
         />
       </div>
     );

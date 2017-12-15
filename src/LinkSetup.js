@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
-import EncryptionDecryption from "./EncryptionDecryption";
 import Xss from "./Xss";
 import SiteDefacing from "./SiteDefacing";
-import CookieDemo from "./CookieDemo";
 import RegisterLogin from "./RegisterLogin";
 import Blog from "./Blog";
 import NewBlog from "./NewBlog";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 class LinkSetup extends Component {
   render() {
@@ -16,24 +15,28 @@ class LinkSetup extends Component {
     };
 
     const MyBlog = props => {
-      return <Blog onLogout={this.props.onLogout} />;
+      return <Blog lastLogin={this.props.lastLogin} />;
     };
 
     return (
       <div className="content">
         <Switch>
           {this.props.loggedIn ? (
-            <span>
-              <Route exact path="/" render={MyBlog} />
-              <Route path="/newblog" component={NewBlog} />
-            </span>
+            // <span>
+            <Route exact path="/" render={MyBlog} />
+          ) : (
+            // </span>
+            <Route exact path="/" render={MyRegisterLogin} />
+          )}
+          {this.props.loggedIn ? (
+            <Route path="/newblog" component={NewBlog} />
           ) : (
             <Route exact path="/" render={MyRegisterLogin} />
           )}
+
           <Route path="/xssdemo" component={Xss} />
           <Route path="/websitedefacing" component={SiteDefacing} />
-          <Route path="/enc-decr" component={EncryptionDecryption} />
-          <Route path="/cookiedemo" component={CookieDemo} />
+          <Route path="/privacypolicy" component={PrivacyPolicy} />
         </Switch>
       </div>
     );

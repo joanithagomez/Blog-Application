@@ -1,13 +1,12 @@
-.container{
-    display: flex;
+.login-container {
+  display: flex;
 }
 
-.login{
-    margin-right: 10%;
+.login {
+  display: flex;
+  margin-right: 10%;
+}
+
+.register {
   display: block;
-}
-
-
-.register{
-    display: block;
 }

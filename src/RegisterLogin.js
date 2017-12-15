@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Login from "./Login";
+// import Login from "./Login";
 import Register from "./Register";
 import PublicHome from "./PublicHome";
 class RegisterLogin extends Component {
@@ -7,7 +7,6 @@ class RegisterLogin extends Component {
     return (
       <span>
         <Register />
-        <Login onLogin={this.props.onLogin} />
         <PublicHome />
       </span>
     );

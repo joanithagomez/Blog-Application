@@ -8,7 +8,8 @@ class AppContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      lastLogin: ""
     };
   }
 
@@ -22,9 +23,11 @@ class AppContainer extends Component {
               return (
                 <App
                   loggedIn={this.state.loggedIn}
-                  onLogin={response => {
+                  lastLogin={this.state.lastLogin}
+                  onLogin={(response, lastVisited) => {
                     this.setState({
-                      loggedIn: response
+                      loggedIn: response,
+                      lastLogin: lastVisited
                     });
                   }}
                   onLogout={response => {
@@ -32,7 +35,7 @@ class AppContainer extends Component {
                       loggedIn: response
                     });
                   }}
-                  onSession={response => {
+                  onSession={(response, lastVisited) => {
                     this.setState({
                       loggedIn: response
                     });
