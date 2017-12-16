@@ -7,7 +7,7 @@ import RegisterLogin from "./RegisterLogin";
 import Blog from "./Blog";
 import NewBlog from "./NewBlog";
 import PrivacyPolicy from "./PrivacyPolicy";
-
+import EncryptionDecryption from "./EncryptionDecryption";
 class LinkSetup extends Component {
   render() {
     const MyRegisterLogin = props => {
@@ -37,6 +37,7 @@ class LinkSetup extends Component {
           <Route path="/xssdemo" component={Xss} />
           <Route path="/websitedefacing" component={SiteDefacing} />
           <Route path="/privacypolicy" component={PrivacyPolicy} />
+          <Route path="/encdec" component={EncryptionDecryption} />
         </Switch>
       </div>
     );

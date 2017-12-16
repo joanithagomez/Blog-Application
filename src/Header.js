@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import Login from "./Login";
 import "./style.css";
 import Popover from "material-ui/Popover";
-import Menu from "material-ui/Menu";
 import RaisedButton from "material-ui/RaisedButton";
 
 class Header extends Component {
@@ -62,6 +61,11 @@ class Header extends Component {
             containerElement={<Link to="/websitedefacing" />}
             onClick={this.handleClose}
           />
+          <MenuItem
+            primaryText="Encryption/ Decryption"
+            containerElement={<Link to="/encdec" />}
+            onClick={this.handleClose}
+          />
         </Drawer>
       </span>
     );
@@ -94,7 +98,7 @@ class LogInButton extends Component {
   render() {
     return (
       <div>
-        <RaisedButton onClick={this.handleClick} label="Login" />
+        <RaisedButton onClick={this.handleClick} primary={true} label="Login" />
         <Popover
           style={{ width: 400, backgroundColor: "#fff" }}
           open={this.state.open}

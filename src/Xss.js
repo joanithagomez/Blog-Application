@@ -29,31 +29,46 @@ class Xss extends Component {
     this.setState({ copied: true });
   };
   render() {
+    const style = { margin: 12 };
+
     return (
       <div className="container">
         <h1>Cross-site scripting Demo</h1>
         <div dangerouslySetInnerHTML={{ __html: this.createMarkup() }} />
-        <TextField onChange={this.handleChange} floatingLabelText="Title" />
-        <div>
-          {"<img src=0 onerror='alert(1)'/>"}
-          <CopyToClipboard onCopy={this.onCopy} text={"<img src=0 onerror='alert(1)'/>"}>
-            <RaisedButton label="Copy" />
-          </CopyToClipboard>
+        <div className="titlefield">
+          <TextField
+            onChange={this.handleChange}
+            fullWidth={true}
+            floatingLabelText="Title"
+          />
         </div>
-        <div>
-          {"<h1>Demo text<h1/>"}
-          <CopyToClipboard onCopy={this.onCopy} text={"<h1>Demo text<h1/>"}>
-            <RaisedButton label="Copy" />
-          </CopyToClipboard>
-        </div>
-        <div>
-          {"<img src=0 onerror='console.log(document.cookie);'"}/>
-          <CopyToClipboard
-            onCopy={this.onCopy}
-            text={"<img src=0 onerror='console.log(document.cookie);'"}
-          >
-            <RaisedButton label="Copy" />
-          </CopyToClipboard>
+        <div className="instructions">
+          <h3>To test:</h3>
+          <div>
+            {"<img src=0 onerror='alert(1)'/>"}
+            <CopyToClipboard
+              onCopy={this.onCopy}
+              text={"<img src=0 onerror='alert(1)'/>"}
+            >
+              <RaisedButton style={style} label="Copy to clipboard" />
+            </CopyToClipboard>
+          </div>
+          <div>
+            {"<h1>Demo text<h1/>"}
+            <CopyToClipboard onCopy={this.onCopy} text={"<h1>Demo text<h1/>"}>
+              <RaisedButton style={style} label="Copy to clipboard" />
+            </CopyToClipboard>
+          </div>
+          <div>
+            <div>After logging in: </div>
+            {"<img src=0 onerror='console.log(document.cookie);'"}/>
+            <CopyToClipboard
+              onCopy={this.onCopy}
+              text={"<img src=0 onerror='console.log(document.cookie);'"}
+            >
+              <RaisedButton style={style} label="Copy to clipboard" />
+            </CopyToClipboard>
+          </div>
         </div>
       </div>
     );

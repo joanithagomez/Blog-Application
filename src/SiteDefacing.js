@@ -35,29 +35,32 @@ class SiteDefacing extends Component {
         </div>
         <div dangerouslySetInnerHTML={{ __html: this.createMarkup() }} />
         <div>
-          <img
-            alt="GoWarriors"
-            src="https://www.downtowncampbell.com/sites/default/files/styles/8-large_650/public/uploads/users/2915/images_5_0?itok=fVADfn-Q"
-          />
+          <img alt="GoWarriors" />
         </div>
 
-        <div className="instructions">
+        <div>
           <TextField
             onChange={this.handleChange}
             fullWidth={true}
             floatingLabelText="Title"
           />
-          {
-            "<img src=0 onerror=\"document.getElementsByTagName('img')[1].src = 'https://dontweightaround.files.wordpress.com/2011/10/gowarriors.jpg'\">"
-          }
-          <CopyToClipboard
-            onCopy={this.onCopy}
-            text={
+        </div>
+        <div className="instructions">
+          <h3>To test:</h3>
+
+          <div>
+            {
               "<img src=0 onerror=\"document.getElementsByTagName('img')[1].src = 'https://dontweightaround.files.wordpress.com/2011/10/gowarriors.jpg'\">"
             }
-          >
-            <RaisedButton label="Copy" />
-          </CopyToClipboard>
+            <CopyToClipboard
+              onCopy={this.onCopy}
+              text={
+                "<img src=0 onerror=\"document.getElementsByTagName('img')[1].src = 'https://dontweightaround.files.wordpress.com/2011/10/gowarriors.jpg'\">"
+              }
+            >
+              <RaisedButton label="Copy to clipboard" />
+            </CopyToClipboard>
+          </div>
         </div>
       </div>
     );
