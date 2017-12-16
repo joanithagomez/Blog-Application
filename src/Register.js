@@ -99,6 +99,7 @@ class Register extends Component {
           name="pass"
           onChange={this.handleChange}
           hintText="Password"
+          type="password"
           floatingLabelText="Password"
           style={{ display: "block" }}
         />

@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 // import Login from "./Login";
+import "./style.css";
+
 import Register from "./Register";
 import PublicHome from "./PublicHome";
 class RegisterLogin extends Component {
   render() {
     return (
-      <span>
-        <Register />
-        <PublicHome />
-      </span>
+      <div className="wrap">
+        <span className="register">
+          <Register />
+        </span>
+        <div>
+          <PublicHome />
+        </div>
+      </div>
     );
   }
 }

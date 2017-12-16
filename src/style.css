@@ -1,9 +1,33 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans";
 .container {
   min-height: inherit;
-  height: 100vh;
+  /*height: 80vh;*/
   padding: 8.33%;
+  text-align: center;
 }
 
 .instructions {
   font-size: 0.9em;
+}
+
+.appbar {
+  background-color: #1d0163 !important;
+  /*color: black !important;*/
+}
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*border: 1px solid red;*/
+}
+
+.titlefield {
+  line-height: 40px !important;
+  font-size: 2em !important;
+}
+.textarea {
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 1em !important;
+  background-color: #eee !important;
+  letter-spacing: 1px !important;
 }

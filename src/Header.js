@@ -8,6 +8,9 @@ import { libFetch } from "./lib";
 import { Link } from "react-router-dom";
 import Login from "./Login";
 import "./style.css";
+import Popover from "material-ui/Popover";
+import Menu from "material-ui/Menu";
+import RaisedButton from "material-ui/RaisedButton";
 
 class Header extends Component {
   constructor(props) {
@@ -27,12 +30,13 @@ class Header extends Component {
       <span>
         <AppBar
           title="Blog"
-          onLeftIconButtonTouchTap={this.handleToggle}
+          className="appbar"
+          onLeftIconButtonClick={this.handleToggle}
           iconElementRight={
             this.props.loggedIn ? (
               <Logged onLogout={this.props.onLogout} />
             ) : (
-              <Login onLogin={this.props.onLogin} />
+              <LogInButton onLogin={this.props.onLogin} />
             )
           }
         />
@@ -42,7 +46,7 @@ class Header extends Component {
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
-          <AppBar showMenuIconButton={false} />
+          <AppBar className="appbar" showMenuIconButton={false} />
           <MenuItem
             primaryText="Home"
             containerElement={<Link to="/" />}
@@ -60,6 +64,48 @@ class Header extends Component {
           />
         </Drawer>
       </span>
+    );
+  }
+}
+
+class LogInButton extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false
+    };
+  }
+
+  handleClick = event => {
+    // This prevents ghost click.
+    event.preventDefault();
+
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget
+    });
+  };
+  handleRequestClose = () => {
+    this.setState({
+      open: false
+    });
+  };
+  render() {
+    return (
+      <div>
+        <RaisedButton onClick={this.handleClick} label="Login" />
+        <Popover
+          style={{ width: 400, backgroundColor: "#fff" }}
+          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{ horizontal: "middle", vertical: "center" }}
+          targetOrigin={{ horizontal: "right", vertical: "top" }}
+          onRequestClose={this.handleRequestClose}
+        >
+          <Login onLogin={this.props.onLogin} />
+        </Popover>
+      </div>
     );
   }
 }

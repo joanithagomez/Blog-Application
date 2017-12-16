@@ -6,6 +6,7 @@ import TextField from "material-ui/TextField";
 import { NavLink } from "react-router-dom";
 import { libFetch } from "./lib";
 import queryString from "query-string";
+import "./style.css";
 
 class NewBlog extends Component {
   constructor(props) {
@@ -65,20 +66,24 @@ class NewBlog extends Component {
     //   margin: 12
     // };
     return (
-      <div>
+      <div className="container">
         <TextField
+          className="titlefield"
           name="title"
           onChange={this.handleChange}
           hintText="Title"
+          fullWidth={true}
           multiLine={true}
           rows={1}
         />
         <TextField
+          className="textarea"
           name="content"
           onChange={this.handleChange}
-          hintText="MultiLine with rows: 2 and rowsMax: 4"
+          // hintText="Tell us..."
           multiLine={true}
           fullWidth={true}
+          rows={20}
         />
         <FlatButton containerElement={<NavLink to="/" />} label="Cancel" />
         <FlatButton

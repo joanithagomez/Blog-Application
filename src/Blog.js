@@ -54,7 +54,7 @@ class Blog extends Component {
     libFetch("/blog/delete_blog.jsp", "POST", stringified)
       .then(response => response.text())
       .then(text => {
-        console.log("Deleting: " + text);
+        // console.log("Deleting: " + text);
 
         self.fetchblogs();
       });

@@ -1,10 +1,15 @@
 .login-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  /*border: 1px solid red;*/
+  /*padding: 10%;*/
 }
 
 .login {
-  display: flex;
-  margin-right: 10%;
+  /*border: 1px solid red;*/
+  padding: 10%;
 }
 
 .register {

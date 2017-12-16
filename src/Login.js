@@ -63,7 +63,7 @@ class Login extends Component {
     //
 
     if (document.cookie === "") {
-      console.log("Last login: now");
+      // console.log("Last login: now");
       document.cookie = "lastVisited=" + JSON.stringify(entry);
       console.log(document.cookie);
     } else {
@@ -116,11 +116,11 @@ class Login extends Component {
 
   render() {
     const style = {
-      margin: 5
+      margin: 12
     };
     const textfieldStyle = {
-      width: 180,
-      color: "white"
+      width: 180
+      // color: "white"
     };
     return (
       <div className="login-container">
@@ -140,12 +140,17 @@ class Login extends Component {
               onChange={this.handleChange}
               hintText="Password"
               floatingLabelText="Password"
-              type="text"
+              type="password"
               style={textfieldStyle}
             />
           </div>
           <div>
-            <RaisedButton label="Login" onClick={this.handleLogin} style={style} />
+            <RaisedButton
+              label="Login"
+              secondary={true}
+              onClick={this.handleLogin}
+              style={style}
+            />
           </div>
           <div>
             <RaisedButton label="SQL" onClick={this.handleDemoLogin} style={style} />
