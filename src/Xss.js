@@ -43,7 +43,7 @@ class Xss extends Component {
           />
         </div>
         <div className="instructions">
-          <h3>To test:</h3>
+          <h3>To test, copy the code below and paste on the text field.</h3>
           <div>
             {"<img src=0 onerror='alert(1)'/>"}
             <CopyToClipboard

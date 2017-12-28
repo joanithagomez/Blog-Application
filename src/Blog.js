@@ -54,8 +54,6 @@ class Blog extends Component {
     libFetch("/blog/delete_blog.jsp", "POST", stringified)
       .then(response => response.text())
       .then(text => {
-        // console.log("Deleting: " + text);
-
         self.fetchblogs();
       });
   }
@@ -92,17 +90,11 @@ class Blog extends Component {
   renderBlogList(posts) {
     var rows = [];
     var self = this;
-    // var i = 0;
     posts.forEach(function(item) {
       if (self.state.selectedItem !== undefined)
         rows.push(
-          <TableRow
-            key={item.id}
-            // selected={self.isSelected(i++)}
-            // style={{ cursor: "pointer" }}
-          >
+          <TableRow key={item.id}>
             <TableRowColumn>{item.title}</TableRowColumn>
-            {/* <TableRowColumn>{item.status}</TableRowColumn> */}
             <TableRowColumn>
               <FlatButton label="View" onClick={self.handleView.bind(self, item.id)} />
               <FlatButton

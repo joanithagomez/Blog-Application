@@ -5,4 +5,4 @@ import './index.css';
 import AppContainer from './AppContainer';
 
 
-ReactDOM.render(<BrowserRouter><AppContainer/></BrowserRouter>, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter basename="/blog"><AppContainer/></BrowserRouter>, document.getElementById('root'));

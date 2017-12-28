@@ -35,7 +35,10 @@ class SiteDefacing extends Component {
         </div>
         <div dangerouslySetInnerHTML={{ __html: this.createMarkup() }} />
         <div>
-          <img alt="GoWarriors" />
+          <img
+            src="/blog/eiffeltower.JPG"
+            alt="GoWarriors"
+          />
         </div>
 
         <div>
@@ -46,7 +49,7 @@ class SiteDefacing extends Component {
           />
         </div>
         <div className="instructions">
-          <h3>To test:</h3>
+          <h3>To test, copy the code below and paste on the text field.</h3>
 
           <div>
             {

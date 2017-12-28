@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
-import FlatButton from "material-ui/FlatButton";
+// import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import "./style.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
