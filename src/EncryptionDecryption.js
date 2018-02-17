@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import RaisedButton from "material-ui/RaisedButton";
-// import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import "./style.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -18,7 +17,6 @@ class EncDec extends Component {
 
   handleEncClick = event => {
     event.preventDefault();
-    // console.log(this.state.fields["msg"] + " " + this.state.fields["key"]);
     if (
       this.state.fields["msg"] === undefined ||
       this.state.fields["key"] === undefined
@@ -37,13 +35,12 @@ class EncDec extends Component {
       this.setState({
         result: encrypted.toString()
       });
-      // console.log("SHA256" + SHA256("Message"));
     }
   };
 
+
   handleDecClick = event => {
     event.preventDefault();
-    console.log(this.state.fields["cipher"] + " " + this.state.fields["deckey"]);
     if (
       this.state.fields["cipher"] === undefined ||
       this.state.fields["deckey"] === undefined
@@ -58,12 +55,9 @@ class EncDec extends Component {
       );
       var de = bytes.toString(CryptoJS.enc.Utf8);
 
-      console.log(de.toString());
-
       this.setState({
         result: de
       });
-      // console.log("SHA256" + SHA256("Message"));
     }
   };
 
@@ -78,6 +72,8 @@ class EncDec extends Component {
       fields
     });
   };
+
+
   render() {
     return (
       <div className="container">
