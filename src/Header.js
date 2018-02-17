@@ -4,12 +4,11 @@ import MenuItem from "material-ui/MenuItem";
 import AppBar from "material-ui/AppBar";
 import FlatButton from "material-ui/FlatButton";
 import { libFetch } from "./lib";
-// import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Login from "./Login";
-import "./style.css";
 import Popover from "material-ui/Popover";
 import RaisedButton from "material-ui/RaisedButton";
+import "./style.css";
 
 class Header extends Component {
   constructor(props) {
@@ -75,26 +74,25 @@ class Header extends Component {
 class LogInButton extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       open: false
     };
   }
 
   handleClick = event => {
-    // This prevents ghost click.
     event.preventDefault();
-
     this.setState({
       open: true,
       anchorEl: event.currentTarget
     });
   };
+
   handleRequestClose = () => {
     this.setState({
       open: false
     });
   };
+
   render() {
     return (
       <div>
@@ -119,6 +117,7 @@ class Logged extends Component {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
   }
+  
   handleLogout() {
     let self = this;
     libFetch("/blog/logout.jsp", "GET", null).then(response => {
@@ -128,6 +127,7 @@ class Logged extends Component {
       });
     });
   }
+  
   render() {
     return (
       <FlatButton
