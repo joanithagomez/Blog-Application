@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import Login from "./Login";
 import "./style.css";
 
 import Register from "./Register";
