@@ -1,6 +1,5 @@
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-// import FlatButton from "material-ui/FlatButton";
 import "./Login.css";
 import React, { Component } from "react";
 import queryString from "query-string";
@@ -58,39 +57,29 @@ class Login extends Component {
     var entry = {};
     entry[username] = new Date().toString();
 
-    // console.log("Now: " + JSON.stringify(x));
-
-    //
-
-    if (document.cookie === "") {
-      // console.log("Last login: now");
+    if (document.cookie === "") 
       document.cookie = "lastVisited=" + JSON.stringify(entry);
-      console.log(document.cookie);
-    } else {
+    else {
       var cukie = document.cookie;
-      // console.log("cukie read: " + cukie);
       var obj = cukie.substring(12);
       var objectcookie = JSON.parse(obj);
       var lastVisited;
-      if (objectcookie.hasOwnProperty(username)) {
-        lastVisited = objectcookie[username];
-      } else {
-        lastVisited = new Date().toString();
-      }
-      console.log("Last login: " + lastVisited);
 
+      if (objectcookie.hasOwnProperty(username))
+        lastVisited = objectcookie[username];
+       else 
+        lastVisited = new Date().toString();
+   
       this.setState({
         lastLogin: lastVisited
       });
       objectcookie[username] = new Date().toString();
       document.cookie = "lastVisited=" + JSON.stringify(objectcookie);
 
-      // }
     }
   }
 
-  //
-  //
+
   handleLogin(event) {
     const data = [];
     data.user = this.state.formvalues["user"];
@@ -99,12 +88,10 @@ class Login extends Component {
     var self = this;
     libFetch("/blog/login_action.jsp", "POST", stringified).then(function(response) {
       response.text().then(function(text) {
-        console.log("Username :" + data.user);
 
         if (text.trim() === "1") {
           self.setCookie(data.user);
           self.props.onLogin(true, self.state.lastLogin);
-          // self.props.setLastLogin(this.state.lastLogin);
         } else {
           self.setState({
             status: "Incorrect Username or password."
@@ -120,7 +107,6 @@ class Login extends Component {
     };
     const textfieldStyle = {
       width: 180
-      // color: "white"
     };
     return (
       <div className="login-container">
