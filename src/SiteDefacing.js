@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-// import "./SiteDefacing.css";
 import "./style.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import RaisedButton from "material-ui/RaisedButton";
