@@ -8,6 +8,8 @@ import Blog from "./Blog";
 import NewBlog from "./NewBlog";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EncryptionDecryption from "./EncryptionDecryption";
+
+
 class LinkSetup extends Component {
   render() {
     const MyRegisterLogin = props => {
@@ -44,6 +46,5 @@ class LinkSetup extends Component {
   }
 }
 
-/* <Blog onLogout={this.props.onLogout} /> */
 
 export default LinkSetup;
