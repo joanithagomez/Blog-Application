@@ -14,8 +14,6 @@ import {
 import { libFetch } from "./lib";
 import queryString from "query-string";
 
-// import TextField from "material-ui/TextField";
-// import AppBar from "material-ui/AppBar";
 
 class Blog extends Component {
   constructor(props) {
@@ -43,10 +41,9 @@ class Blog extends Component {
         });
       });
   }
-  //
-  //
+
+  
   handleDelete(id, e) {
-    // console.log("deleting id: " + id);
     const data = [];
     data.id = id;
     const stringified = queryString.stringify(data);
@@ -63,15 +60,12 @@ class Blog extends Component {
   }
 
   handleRowSelection = selectedRow => {
-    // console.log("selected " + selectedRow);
-
     this.setState({
       selectedItem: selectedRow
     });
   };
-  //
-  //
-  handleView(id, e) {
+
+handleView(id, e) {
     const data = [];
     data.id = id;
     const stringified = queryString.stringify(data);
@@ -82,11 +76,9 @@ class Blog extends Component {
           selectedBlog: data
         });
       });
-    // console.log(id);
+   
   }
 
-  //
-  //
   renderBlogList(posts) {
     var rows = [];
     var self = this;
@@ -108,8 +100,7 @@ class Blog extends Component {
     return rows;
   }
 
-  //
-  //
+
   render() {
     const style = {
       margin: 12
@@ -144,8 +135,6 @@ class Blog extends Component {
     );
   }
 }
-//
-//
-//
+
 
 export default Blog;
