@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-// import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
-// import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { libFetch } from "./lib";
 import queryString from "query-string";
@@ -53,7 +51,6 @@ class NewBlog extends Component {
     data.content = this.state.formvalues["content"];
     const stringified = queryString.stringify(data);
     var self = this;
-    // var array = [];
     libFetch("/blog/blog_action.jsp", "POST", stringified).then(function(response) {
       response.text().then(function(text) {
         self.fetchblogs();
@@ -62,9 +59,6 @@ class NewBlog extends Component {
   }
 
   render() {
-    // const style = {
-    //   margin: 12
-    // };
     return (
       <div className="container">
         <TextField
